@@ -44,23 +44,6 @@ async function createIndexes(db: Db, logger: any) {
             }
         )
 
-        await db.collection('discord_members').createIndex(
-            { discordId: 1 },
-            {
-                unique: true,
-                name: 'unique_discord_id'
-            }
-        )
-
-        await db.collection('discord_members').createIndex(
-            { id: 1 },
-            {
-                unique: true,
-                name: 'unique_discord_member_id'
-            }
-        )
-
-
         const blogPosts = db.collection('blogPosts')
         await blogPosts.createIndex(
             { slug: 1 },

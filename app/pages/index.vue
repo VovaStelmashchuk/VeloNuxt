@@ -12,9 +12,11 @@
                 <p class="text-xl text-label-secondary mb-12 max-w-3xl mx-auto">
                     Push keep it stupid simple to the maximum. Explore the true power of copy paste.
                 </p>
-                <div class="flex justify-center">
+                <div class="flex justify-center gap-4">
                     <MainButton button-style="primary" size="L" label="GitHub" icon="mdi:github"
                         link="https://github.com/VovaStelmashchuk/kickstart" />
+                    <MainButton button-style="secondary" size="L" label="Login with Google" icon="mdi:google"
+                        @click="startGoogleAuth" />
                 </div>
             </div>
         </div>
@@ -228,4 +230,15 @@ definePageMeta({
 onMounted(async () => {
     trackEvent('page_view', { page: 'landing' })
 })
+
+const startGoogleAuth = async () => {
+    try {
+        const response = await $fetch<{ url: string }>('/api/auth/google/redirect')
+        if (response.url) {
+            window.location.href = response.url
+        }
+    } catch (e) {
+        console.error('Failed to start Google Auth', e)
+    }
+}
 </script>

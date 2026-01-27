@@ -50,12 +50,6 @@ const cards = [
         description: 'Create and edit blog articles',
     },
     {
-        route: '/admin/media',
-        icon: 'mdi:newspaper-variant',
-        title: 'Медіа про нас',
-        description: 'Керування медіа постами для головної сторінки',
-    },
-    {
         route: '/admin/gallery',
         icon: 'mdi:image-multiple',
         title: 'Галерея',

@@ -11,6 +11,7 @@ services:
             - NUXT_PUBLIC_BASE_URL=https://velonuxt.stelmashchuk.dev
             - NUXT_MONGO_URI=${MONGO_URI}
             - NUXT_JWT_SECRET=${JWT_SECRET}
+            - NUXT_PUBLIC_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
         deploy:
             update_config:
                 order: start-first

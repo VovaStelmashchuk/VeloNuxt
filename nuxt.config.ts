@@ -1,6 +1,7 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
+    extends: ['./layers/gallery', './layers/google-auth'],
     compatibilityDate: '2025-07-15',
     devtools: { enabled: true },
     imports: {
@@ -13,6 +14,7 @@ export default defineNuxtConfig({
         public: {
             baseUrl: 'http://localhost:3000',
             gitCommitSha: 'local',
+            googleClientId: '',
         },
     },
     vite: {
