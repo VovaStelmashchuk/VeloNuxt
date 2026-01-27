@@ -1,29 +1,35 @@
 <template>
-    <div
-        class="max-w-2xl mx-auto my-8 bg-gray-50 rounded-xl shadow p-8 text-lg leading-relaxed text-accent-primary"
-    >
-        <h1 class="text-2xl font-bold text-center mb-6">Умови користування</h1>
-        <p class="mb-4">
-            Ласкаво просимо до ГО "HU31 hacker space". Користуючись нашими
-            сервісами, ви погоджуєтеся дотримуватися цих Умов користування. Будь
-            ласка, уважно ознайомтеся з ними перед початком використання.
+    <div class="max-w-4xl mx-auto my-12 text-lg leading-relaxed text-label-primary p-6">
+        <h1 class="text-4xl font-bold mb-8 text-accent-primary">Terms and Conditions</h1>
+
+        <p class="mb-8 text-xl text-label-secondary">
+            By using this project, you agree to the following terms and conditions.
         </p>
-        <p class="mb-4">
-            Всі сервіси та простір ГО "HU31 hacker space" призначені виключно
-            для мирної, освітньої та творчої діяльності. Забороняється
-            використовувати ресурси організації для незаконної діяльності чи
-            дій, які можуть призвести до шкоди іншим користувачам або
-            обладнанню.
-        </p>
-        <p class="mb-4">
-            Користувачі зобов’язані поважати один одного та дотримуватися
-            етичних норм спільноти. Адміністрація залишає за собою право
-            обмежувати доступ до сервісів у разі порушення цих Умов.
-        </p>
-        <p>
-            Якщо у вас виникли питання або пропозиції, звертайтеся до
-            адміністрації ГО "HU31 hacker space".
-        </p>
+
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4 text-accent-primary">Usage</h2>
+            <p class="mb-4">
+                This project is open-source and provided as-is. You are free to use, modify, redistribute, and integrate
+                it into any of your projects or solutions without restrictions.
+            </p>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4 text-accent-primary">Disclaimer</h2>
+            <p class="mb-4">
+                The project is provided without any warranty of any kind, express or implied, including but not limited
+                to the warranties of merchantability, fitness for a particular purpose, or non-infringement. We are not
+                responsible for any issues or damages arising from the use of this project.
+            </p>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4 text-accent-primary">Acknowledgment</h2>
+            <p class="mb-4">
+                By using this project, you acknowledge that it is intended to help you start your SaaS project and does
+                not impose any limitations or restrictions on its usage.
+            </p>
+        </section>
     </div>
 </template>
 

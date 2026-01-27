@@ -1,10 +1,5 @@
 <template>
     <div class="min-h-screen bg-background-primary text-label-primary font-sans">
-        <div class="container mx-auto px-4 py-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
-            <div class="flex w-full sm:w-auto items-center justify-end gap-4 flex-row">
-                <ThemeSwitch />
-            </div>
-        </div>
 
         <div class="relative w-full py-20">
             <div class="container mx-auto px-6 text-center">
@@ -145,8 +140,8 @@
                 </div>
             </section>
 
-             <!-- Get Started Section -->
-             <section>
+            <!-- Get Started Section -->
+            <section>
                 <h2 class="text-4xl font-bold mb-8 text-accent-primary border-b border-separator-primary pb-4">
                     Get Started
                 </h2>
@@ -169,20 +164,26 @@ npm run dev
             </section>
 
             <!-- Deployment Section 2 -->
-             <section>
+            <section>
                 <h2 class="text-4xl font-bold mb-8 text-accent-primary border-b border-separator-primary pb-4">
                     Deploy to Any VPS
                 </h2>
                 <p class="text-xl mb-6 text-label-secondary">
-                    We personally use <a href="https://hetzner.cloud/?ref=z9gjQzbiO5y9" class="underline hover:text-accent-primary">Hetzner</a> (hosting multiple projects on a single VPS).
+                    We personally use <a href="https://hetzner.cloud/?ref=z9gjQzbiO5y9"
+                        class="underline hover:text-accent-primary">Hetzner</a> (hosting multiple projects on a single
+                    VPS).
                 </p>
                 <div class="bg-fill-secondary p-6 rounded-xl border border-separator-primary">
                     <h3 class="text-lg font-bold mb-4">Some Projects Hosted on the Same Server:</h3>
                     <ul class="list-disc list-inside space-y-2 text-label-secondary">
-                        <li><a href="https://mixdrinks.org" class="hover:text-accent-primary underline">mixdrinks.org</a></li>
-                        <li><a href="https://androidstory.dev" class="hover:text-accent-primary underline">androidstory.dev</a></li>
-                        <li><a href="https://podcast.stelmashchuk.dev" class="hover:text-accent-primary underline">podcast.stelmashchuk.dev</a></li>
-                        <li><a href="https://nest2d.stelmashchuk.dev" class="hover:text-accent-primary underline">nest2d.stelmashchuk.dev</a></li>
+                        <li><a href="https://mixdrinks.org"
+                                class="hover:text-accent-primary underline">mixdrinks.org</a></li>
+                        <li><a href="https://androidstory.dev"
+                                class="hover:text-accent-primary underline">androidstory.dev</a></li>
+                        <li><a href="https://podcast.stelmashchuk.dev"
+                                class="hover:text-accent-primary underline">podcast.stelmashchuk.dev</a></li>
+                        <li><a href="https://nest2d.stelmashchuk.dev"
+                                class="hover:text-accent-primary underline">nest2d.stelmashchuk.dev</a></li>
                     </ul>
                 </div>
             </section>
@@ -195,29 +196,22 @@ npm run dev
                 <div class="space-y-6">
                     <div>
                         <h3 class="text-xl font-bold mb-2">Is it open source?</h3>
-                        <p class="text-label-secondary">Yes, it's completely open-source. Feel free to use and modify!</p>
+                        <p class="text-label-secondary">Yes, it's completely open-source. Feel free to use and modify!
+                        </p>
                     </div>
                     <div>
                         <h3 class="text-xl font-bold mb-2">What is the stack?</h3>
-                        <p class="text-label-secondary">Nuxt 3 (Vue), Tailwind CSS, MongoDB integration, Docker, and GitHub Actions for CI/CD.</p>
+                        <p class="text-label-secondary">Nuxt 3 (Vue), Tailwind CSS, MongoDB integration, Docker, and
+                            GitHub Actions for CI/CD.</p>
                     </div>
                     <div>
                         <h3 class="text-xl font-bold mb-2">Can I contribute?</h3>
-                        <p class="text-label-secondary">Absolutely! Check out our <a href="https://github.com/VovaStelmashchuk/kickstart" class="underline hover:text-accent-primary">GitHub repository</a>.</p>
+                        <p class="text-label-secondary">Absolutely! Check out our <a
+                                href="https://github.com/VovaStelmashchuk/kickstart"
+                                class="underline hover:text-accent-primary">GitHub repository</a>.</p>
                     </div>
                 </div>
             </section>
-
-             <footer class="border-t border-separator-primary pt-16 flex flex-col md:flex-row justify-between items-center gap-4 text-label-secondary text-sm">
-                <div>
-                   © 2025 Vova Stelmashchuk. All rights reserved. Built with ♥ and open source principles.
-                </div>
-                <div class="flex gap-4">
-                     <a href="https://github.com/VovaStelmashchuk/kickstart" class="hover:text-accent-primary underline">GitHub</a>
-                     <a href="https://kickstart.stelmashchuk.dev/doc/terms-and-conditions" class="hover:text-accent-primary underline">Terms and Conditions</a>
-                </div>
-             </footer>
-
         </div>
     </div>
 </template>

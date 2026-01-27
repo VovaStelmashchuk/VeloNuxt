@@ -60,18 +60,6 @@ async function createIndexes(db: Db, logger: any) {
             }
         )
 
-        await db.collection('electricity_trackers').createIndex(
-            { slug: 1 },
-            {
-                unique: true,
-                name: 'unique_electricity_tracker_slug'
-            }
-        )
-
-        await db.collection('electricity_tracker_alive').createIndex(
-            { deviceSlug: 1, timestamp: -1 },
-            { name: 'deviceSlug_timestamp_desc' }
-        )
 
         const blogPosts = db.collection('blogPosts')
         await blogPosts.createIndex(

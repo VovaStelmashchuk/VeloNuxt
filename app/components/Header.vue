@@ -5,7 +5,6 @@
                 <NuxtLink to="/home" class="text-3xl font-bold text-accent-primary hover:opacity-80 transition-opacity">
                     NU31
                 </NuxtLink>
-                <MainBadge v-if="!isLoading && status" :variant="badgeVariant" :label="badgeLabel" />
             </div>
             <div class="flex items-center space-x-4">
                 <NuxtLink v-if="isLoggedIn && avatarUrl" to="/profile"
@@ -16,7 +15,6 @@
                         {{ user?.name }}
                     </span>
                 </NuxtLink>
-                <ThemeSwitch />
             </div>
         </div>
     </div>
@@ -25,13 +23,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useUser } from '~/composables/useUser'
-import { useElectricityStatus } from '~/composables/useElectricityStatus'
 
 const { user, isLoggedIn, avatarUrl } = useUser()
-const { status, isLoading, badgeVariant, badgeLabel, fetchStatus } = useElectricityStatus()
 
 onMounted(() => {
     useUser().fetchUser()
-    fetchStatus()
 })
 </script>

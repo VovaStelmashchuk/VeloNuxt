@@ -38,22 +38,10 @@ definePageMeta({
 
 const cards = [
     {
-        route: '/karma',
-        icon: 'mdi:chart-line',
-        title: 'Подивитися карму людей',
-        description: 'Переглянути рейтинг та карму всіх учасників спільноти',
-    },
-    {
         route: '/design',
         icon: 'mdi:palette',
         title: 'Подивитися на дизайн систему',
         description: 'Вивчити компоненти та стилі дизайн системи',
-    },
-    {
-        route: '/electricity',
-        icon: 'mdi:lightning-bolt',
-        title: 'Подивитися електроенергію',
-        description: 'Переглянути електроенергію всіх учасників спільноти',
     },
     {
         route: '/admin/blog',

@@ -13,7 +13,6 @@ export default defineNuxtConfig({
         public: {
             baseUrl: 'http://localhost:3000',
             gitCommitSha: 'local',
-            spaceElectricityTrackerSlug: 'nu31',
         },
     },
     vite: {
