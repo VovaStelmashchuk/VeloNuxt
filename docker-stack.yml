@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+    app:
+        image: ghcr.io/nu31hackerspace/space:${GIT_COMMIT_HASH:-latest}
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+        environment:
+            - NUXT_PUBLIC_GIT_COMMIT_SHA=${GIT_COMMIT_HASH}
+            - NUXT_PUBLIC_BASE_URL=https://nu31.space
+            - NUXT_MONGO_URI=${MONGO_URI}
+            - NUXT_PUBLIC_SPACE_ELECTRICITY_TRACKER_SLUG=${SPACE_ELECTRICITY_TRACKER_SLUG}
+            - NUXT_JWT_SECRET=${JWT_SECRET}
+        deploy:
+            update_config:
+                order: start-first
+        networks:
+            - infra_reverse-proxy
+            - infra_mongo-rs-net
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:3000/api/service/health"]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 10s
+
+networks:
+    infra_reverse-proxy:
+        external: true
+    infra_mongo-rs-net:
+        external: true
