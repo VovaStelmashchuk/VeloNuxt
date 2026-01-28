@@ -1,5 +1,5 @@
 import { defineEventHandler, useNitroApp } from '#imports'
-import { UserSession } from '~~/server/core/user/user'
+import { UserSession } from '~~/layers/01-user/server/core/user/user'
 
 export default defineEventHandler(async (event) => {
     const userSession = event.context.user as UserSession | undefined

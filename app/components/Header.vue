@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { useUser } from '~/composables/useUser'
+import { useUser } from '~~/layers/01-user/app/composables/useUser'
 
 const { user, isLoggedIn, avatarUrl } = useUser()
 

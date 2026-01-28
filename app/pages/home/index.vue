@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import { definePageMeta } from '#imports'
 import { onMounted } from 'vue'
-import { trackEvent } from '~~/app/utils/track'
+import { trackEvent } from '~~/layers/03-analytics/app/utils/track'
 import { Icon } from '@iconify/vue'
 
 definePageMeta({

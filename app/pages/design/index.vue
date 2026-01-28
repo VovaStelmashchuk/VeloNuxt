@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { trackEvent } from '~~/app/utils/track'
+import { trackEvent } from '~~/layers/03-analytics/app/utils/track'
 
 onMounted(() => {
     trackEvent('page_view', { page: 'design_system_index' })

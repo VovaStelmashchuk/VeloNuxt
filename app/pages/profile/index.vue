@@ -6,21 +6,13 @@
                     Профіль користувача
                 </h1>
 
-                <div
-                    class="bg-fill-secondary p-8 rounded-xl border border-separator-primary"
-                >
+                <div class="bg-fill-secondary p-8 rounded-xl border border-separator-primary">
                     <div class="flex items-start gap-6">
                         <div class="flex-shrink-0">
-                            <img
-                                v-if="avatarUrl"
-                                :src="avatarUrl"
-                                :alt="user?.name || 'User avatar'"
-                                class="w-32 h-32 rounded-full border-2 border-separator-primary"
-                            />
-                            <div
-                                v-else
-                                class="w-32 h-32 rounded-full bg-fill-tertiary border-2 border-separator-primary flex items-center justify-center"
-                            >
+                            <img v-if="avatarUrl" :src="avatarUrl" :alt="user?.name || 'User avatar'"
+                                class="w-32 h-32 rounded-full border-2 border-separator-primary" />
+                            <div v-else
+                                class="w-32 h-32 rounded-full bg-fill-tertiary border-2 border-separator-primary flex items-center justify-center">
                                 <span class="text-4xl text-label-secondary">
                                     {{ user?.name?.charAt(0).toUpperCase() }}
                                 </span>
@@ -29,9 +21,7 @@
 
                         <div class="flex-1 flex flex-col justify-center gap-4">
                             <div>
-                                <h2
-                                    class="text-2xl font-bold text-label-primary mb-1"
-                                >
+                                <h2 class="text-2xl font-bold text-label-primary mb-1">
                                     {{ user?.name }}
                                 </h2>
                                 <p class="text-sm text-label-secondary">
@@ -39,12 +29,7 @@
                                 </p>
                             </div>
                             <div>
-                                <MainButton
-                                    buttonStyle="secondary"
-                                    size="M"
-                                    icon="mdi:logout"
-                                    @click="handleLogout"
-                                >
+                                <MainButton buttonStyle="secondary" size="M" icon="mdi:logout" @click="handleLogout">
                                     Вийти з акаунта
                                 </MainButton>
                             </div>
@@ -59,8 +44,8 @@
 <script setup lang="ts">
 import { definePageMeta, navigateTo } from '#imports'
 import { onMounted, ref } from 'vue'
-import { useUser } from '~/composables/useUser'
-import { trackEvent } from '~~/app/utils/track'
+import { useUser } from '~~/layers/01-user/app/composables/useUser'
+import { trackEvent } from '~~/layers/03-analytics/app/utils/track'
 
 definePageMeta({
     layout: 'default',

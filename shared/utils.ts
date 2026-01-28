@@ -15,19 +15,7 @@ function transliterate(text: string): string {
     return text.split('').map(char => ukrainianMap[char] || char).join('')
 }
 
-export function createSlugFromName(name: string): string {
-    return transliterate(name)
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/[^a-z0-9\-]/g, '')
-        .replace(/\-+/g, '-')
-        .replace(/^-|-$/g, '')
-        .substring(0, 64)
-}
-
-export function generateSlugFromTitle(title: string): string {
+ export function generateSlugFromTitle(title: string): string {
     const base = transliterate(title || '')
         .toLowerCase()
         .normalize('NFKD')

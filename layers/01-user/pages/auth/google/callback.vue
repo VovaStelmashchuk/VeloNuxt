@@ -34,7 +34,6 @@ onMounted(async () => {
         return
     }
 
-    // 2. Send to server
     try {
         await $fetch('/api/auth/google/login', {
             method: 'POST',
@@ -43,8 +42,6 @@ onMounted(async () => {
             },
         })
 
-        // 3. Redirect to home/profile
-        // Force reload or state update might be needed if useUser is cached
         window.location.href = '/home'
     } catch (e) {
         console.error('Login failed', e)

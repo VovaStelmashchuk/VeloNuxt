@@ -1,4 +1,4 @@
-import type { TrackRequest } from '~~/shared/types/track_body'
+import type { TrackRequest } from '~~/layers/03-analytics/shared/types/track_body'
 
 export async function trackEvent(
     action: string,

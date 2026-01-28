@@ -1,7 +1,7 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-    extends: ['./layers/gallery', './layers/google-auth'],
+    extends: ['./layers/00-service', './layers/01-user', './layers/02-gallery', './layers/03-analytics'],
     compatibilityDate: '2025-07-15',
     devtools: { enabled: true },
     imports: {
@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     },
     pages: true,
     runtimeConfig: {
-        mongoUri: 'mongodb://localhost:27017/nu31space',
+        mongoUri: 'mongodb://localhost:27017/velonuxt',
         jwtSecret: 'test-jwt-secret',
         public: {
             baseUrl: 'http://localhost:3000',
