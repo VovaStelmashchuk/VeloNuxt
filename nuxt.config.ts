@@ -1,4 +1,5 @@
 import tailwindcss from '@tailwindcss/vite'
+import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
     extends: ['./layers/00-service', './layers/01-user', './layers/02-gallery', './layers/03-analytics'],

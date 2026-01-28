@@ -34,16 +34,6 @@ async function createIndexes(db: Db, logger: any) {
     try {
         logger.info('Creating database indexes...')
 
-        const usersCollection = db.collection('users')
-
-        await usersCollection.createIndex(
-            { id: 1 },
-            {
-                unique: true,
-                name: 'unique_user_id'
-            }
-        )
-
         const blogPosts = db.collection('blogPosts')
         await blogPosts.createIndex(
             { slug: 1 },
