@@ -9,9 +9,9 @@ export default defineEventHandler(async (event) => {
     url.searchParams.append('access_token', googleAccessToken as string)
 
     const data = await $fetch(url.toString())
-    const { sub, email, name, picture } = data as any
+    const { sub, email, name } = data as any
 
-    if (!sub || !email || !picture || !name) {
+    if (!sub || !email || !name) {
         setResponseStatus(event, 401)
         return { error: 'Invalid access token' }
     }

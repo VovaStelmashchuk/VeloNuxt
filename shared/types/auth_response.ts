@@ -13,6 +13,5 @@ export interface AuthFailureResponse {
     success: false
     errorCode: number
     errorMessage: string
-
 }
 

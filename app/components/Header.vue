@@ -7,10 +7,8 @@
                 </NuxtLink>
             </div>
             <div class="flex items-center space-x-4">
-                <NuxtLink v-if="isLoggedIn && avatarUrl" to="/profile"
+                <NuxtLink v-if="isLoggedIn" to="/profile"
                     class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-                    <img :src="avatarUrl" :alt="user?.name || 'User avatar'"
-                        class="w-10 h-10 rounded-full border-1 border-separator-primary" />
                     <span class="text-sm font-medium text-label-primary">
                         {{ user?.name }}
                     </span>
@@ -24,7 +22,7 @@
 import { onMounted } from 'vue'
 import { useUser } from '~~/layers/01-user/app/composables/useUser'
 
-const { user, isLoggedIn, avatarUrl } = useUser()
+const { user, isLoggedIn } = useUser()
 
 onMounted(() => {
     useUser().fetchUser()

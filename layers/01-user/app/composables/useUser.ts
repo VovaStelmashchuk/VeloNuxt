@@ -5,7 +5,6 @@ export type User = {
     id: string
     name: string
     username: string
-    avatarFilename?: string
 }
 
 const user = ref<User | null>(null)
@@ -33,12 +32,7 @@ export const useUser = () => {
 
     const isLoggedIn = computed(() => user.value !== null)
 
-    const avatarUrl = computed(() => {
-        if (user.value?.id) {
-            return `/api/user/${user.value.id}/avatar.png`
-        }
-        return null
-    })
+
 
     const logout = async () => {
         try {
@@ -60,7 +54,7 @@ export const useUser = () => {
         user,
         isLoggedIn,
         isLoading,
-        avatarUrl,
+
         fetchUser,
         logout,
     }
