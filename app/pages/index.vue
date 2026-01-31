@@ -3,8 +3,8 @@
 
         <div class="relative w-full py-20">
             <div class="container mx-auto px-6 text-center">
-                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-accent-primary">
-                    KickStart
+                <h1 class="text-5xl md:tex-7xl font-bold mb-6 text-accent-primary">
+                    VeloNuxt
                 </h1>
                 <h2 class="text-3xl md:text-4xl font-bold mb-8 text-label-primary">
                     make your next project in weekends

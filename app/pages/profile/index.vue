@@ -8,8 +8,9 @@
 
                 <div class="bg-fill-secondary p-8 rounded-xl border border-separator-primary">
                     <div class="flex items-start gap-6">
-
-
+                        <div class="flex-shrink-0">
+                            <UserAvatar :name="user?.name" size="2xl" />
+                        </div>
                         <div class="flex-1 flex flex-col justify-center gap-4">
                             <div>
                                 <h2 class="text-2xl font-bold text-label-primary mb-1">

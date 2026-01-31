@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center">
             <div class="flex items-center space-x-4">
                 <NuxtLink to="/home" class="text-3xl font-bold text-accent-primary hover:opacity-80 transition-opacity">
-                    NU31
+                    VeloNuxt
                 </NuxtLink>
             </div>
             <div class="flex items-center space-x-4">
@@ -12,6 +12,7 @@
                     <span class="text-sm font-medium text-label-primary">
                         {{ user?.name }}
                     </span>
+                    <UserAvatar :name="user?.name" size="md" />
                 </NuxtLink>
             </div>
         </div>
