@@ -11,6 +11,32 @@ export default defineNitroPlugin(async (nitroApp) => {
         nitroApp.mongo = await client.connect()
         nitroApp.db = nitroApp.mongo.db()
         nitroApp.logger.info('Connected to MongoDB')
+
+        const usersCollection = nitroApp.db.collection('users')
+
+        await usersCollection.createIndex(
+            { id: 1 },
+            {
+                unique: true,
+                name: 'unique_user_id'
+            }
+        )
+
+        const blogPosts = nitroApp.db.collection('blogPosts')
+        await blogPosts.createIndex(
+            { slug: 1 },
+            {
+                unique: true,
+                name: 'unique_blog_slug'
+            }
+        )
+        await blogPosts.createIndex(
+            { status: 1, updatedAt: -1 },
+            {
+                name: 'status_updatedAt_idx'
+            }
+        )
+
     } catch (error) {
         nitroApp.logger.error('Failed to connect to MongoDB:', error)
     }

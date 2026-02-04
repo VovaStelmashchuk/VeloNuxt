@@ -21,7 +21,6 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 404, statusMessage: 'Article not found' })
     }
 
-    // Parse Markdown to AST
     const ast = await parseMarkdown(post.rawMarkdown || '')
 
     return {
