@@ -8,7 +8,13 @@
             <p class="text-red-500">Error loading article: {{ error.message }}</p>
         </div>
 
-        <div v-else-if="content" class="space-y-4">
+        <div v-else-if="content && content.body" class="prose max-w-none">
+            <h1 class="text-3xl font-bold mb-4">{{ content.title }}</h1>
+            <BlockRenderer :nodes="content.body.children" />
+        </div>
+
+        <!-- Fallback for old blocks structure if needed -->
+        <div v-else-if="content && content.blocks" class="space-y-4">
             <template v-for="(block, index) in content.blocks" :key="index">
                 <BlogHeaderItem v-if="block.type === 'header'" :title="block.title || ''" :size="block.size || '1'" />
                 <BlogTextItem v-else-if="block.type === 'text'" :text="block.content || ''" />

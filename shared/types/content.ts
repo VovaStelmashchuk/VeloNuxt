@@ -33,6 +33,12 @@ export interface TagsBlock extends ContentBlockBase {
 export type ContentBlock = HeaderBlock | TextBlock | ImageBlock | LinkBlock | TagsBlock
 
 export interface ContentResponse {
-    blocks: ContentBlock[]
+    blocks?: ContentBlock[]
+    body?: any // AST tree
+    title?: string
+    slug?: string
+    rawMarkdown?: string
+    createdAt?: string
+    updatedAt?: string
 }
 

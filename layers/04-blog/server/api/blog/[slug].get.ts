@@ -1,4 +1,5 @@
 import { createError, defineEventHandler, getRouterParam, useNitroApp } from '#imports'
+import { parseMarkdown } from '#imports'
 
 export default defineEventHandler(async (event) => {
     const user = event.context.user
@@ -20,7 +21,13 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 404, statusMessage: 'Article not found' })
     }
 
-    return post
+    // Parse Markdown to AST
+    const ast = await parseMarkdown(post.rawMarkdown || '')
+
+    return {
+        ...post,
+        body: ast
+    }
 })
 
 
