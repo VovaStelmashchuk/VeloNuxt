@@ -31,9 +31,9 @@ definePageMeta({
 })
 
 const route = useRoute()
-const mdFileName = route.params['article_slug'] as string
+const slug = route.params['article_slug'] as string
 
-if (!mdFileName) {
+if (!slug) {
     throw createError({
         statusCode: 400,
         statusMessage: 'Markdown file name is required',
@@ -41,6 +41,6 @@ if (!mdFileName) {
 }
 
 const { data: content, pending, error } = await useFetch<ContentResponse>(
-    `/api/content/${mdFileName}`
+    `/api/blog/${slug}`
 )
 </script>

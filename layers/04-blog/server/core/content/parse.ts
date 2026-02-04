@@ -106,5 +106,3 @@ export function parseMarkdownToBlocks(markdownContent: string): ContentBlock[] {
     flushTextBlock()
     return blocks
 }
-
-

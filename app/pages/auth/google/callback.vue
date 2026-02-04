@@ -18,7 +18,6 @@ const router = useRouter()
 const route = useRoute()
 
 onMounted(async () => {
-    // 1. Extract token from hash
     const hash = route.hash.substring(1)
     const params = hash.split('&').reduce((acc, item) => {
         const [key, value] = item.split('=')

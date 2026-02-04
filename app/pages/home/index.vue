@@ -40,8 +40,8 @@ const cards = [
     {
         route: '/design',
         icon: 'mdi:palette',
-        title: 'Подивитися на дизайн систему',
-        description: 'Вивчити компоненти та стилі дизайн системи',
+        title: 'Design system',
+        description: 'Explore the design system components and styles',
     },
     {
         route: '/admin/blog',
@@ -52,8 +52,8 @@ const cards = [
     {
         route: '/admin/gallery',
         icon: 'mdi:image-multiple',
-        title: 'Галерея',
-        description: 'Керування зображеннями галереї',
+        title: 'Galery',
+        description: 'Manage gallery images',
     },
 ]
 
