@@ -30,9 +30,8 @@ export default defineEventHandler(async (event): Promise<BlogPost> => {
 
     const ast = await parseMarkdown(noMetaInfo)
 
-    // Map tags from database strings to BlogTag objects
     const tags: BlogTag[] = (post.tags || []).map((tagSlug: string) => ({
-        name: tagSlug.replace(/_/g, ' '),
+        name: tagSlug.replace(/_/g, ' ').replace(/-/g, ' '),
         slug: tagSlug
     }))
 
