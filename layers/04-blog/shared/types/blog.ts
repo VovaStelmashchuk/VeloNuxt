@@ -1,13 +1,15 @@
+export type BlogTag = {
+    name: string
+    slug: string
+}
 export interface BlogPost {
     title: string
     slug: string
     status: string
-    rawMarkdown?: string
-    body?: BlogRootNode
-    createdAt: Date | string
-    updatedAt: Date | string
-    description?: string
-    coverImage?: string
+    body: BlogRootNode
+    createdAt: Date
+    updatedAt: Date
+    tags: BlogTag[]
 }
 
 export interface BlogPostRequest {

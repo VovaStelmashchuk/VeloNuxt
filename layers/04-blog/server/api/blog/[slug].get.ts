@@ -1,6 +1,7 @@
 import { createError, defineEventHandler, getRouterParam, useNitroApp } from '#imports'
 import { parseMarkdown } from '../../utils/markdown'
-import { BlogPost } from '../../../shared/types/blog'
+import { BlogPost, BlogTag } from '../../../shared/types/blog'
+import { removeMetaInfo } from '../../utils/meta'
 
 export default defineEventHandler(async (event): Promise<BlogPost> => {
     const user = event.context.user
@@ -16,18 +17,36 @@ export default defineEventHandler(async (event): Promise<BlogPost> => {
     const db = useNitroApp().db
     const post = await db.collection('blogPosts').findOne(
         { slug },
-        { projection: { _id: 0, slug: 1, title: 1, status: 1, rawMarkdown: 1, updatedAt: 1, createdAt: 1 } }
+        { projection: { _id: 0, slug: 1, title: 1, status: 1, rawMarkdown: 1, updatedAt: 1, createdAt: 1, tags: 1 } }
     )
     if (!post) {
         throw createError({ statusCode: 404, statusMessage: 'Article not found' })
     }
 
-    const ast = await parseMarkdown(post.rawMarkdown || '')
+    console.log(post.rawMarkdown)
+    const noMetaInfo = removeMetaInfo(post.rawMarkdown || '')
 
-    return {
-        ...(post as unknown as BlogPost),
-        body: ast
+    console.log(noMetaInfo)
+
+    const ast = await parseMarkdown(noMetaInfo)
+
+    // Map tags from database strings to BlogTag objects
+    const tags: BlogTag[] = (post.tags || []).map((tagSlug: string) => ({
+        name: tagSlug.replace(/_/g, ' '),
+        slug: tagSlug
+    }))
+
+    const blogPost: BlogPost = {
+        title: post.title,
+        slug: post.slug,
+        status: post.status,
+        body: ast,
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt,
+        tags: tags
     }
+
+    return blogPost
 })
 
 

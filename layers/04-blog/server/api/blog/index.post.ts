@@ -1,6 +1,7 @@
 import { createError, defineEventHandler, readBody, useNitroApp } from '#imports'
 import { type BlogPostRequest } from '../../../shared/types/blog'
 import { generateSlugFromTitle } from '~~/shared/utils'
+import { getMetaInfo } from '../../utils/meta'
 
 export default defineEventHandler(async (event) => {
     const user = event.context.user
@@ -20,6 +21,7 @@ export default defineEventHandler(async (event) => {
     const db = useNitroApp().db
     const now = new Date()
     const slug = generateSlugFromTitle(title)
+    const metaInfo = getMetaInfo(markdown)
 
     try {
         await db.collection('blogPosts').insertOne({
@@ -27,8 +29,10 @@ export default defineEventHandler(async (event) => {
             title,
             owner_id: user.userId,
             rawMarkdown: markdown,
+            tags: metaInfo.tags,
             versions: [
                 {
+                    tags: metaInfo.tags,
                     editor_id: user.userId,
                     markdown,
                     createdAt: now,

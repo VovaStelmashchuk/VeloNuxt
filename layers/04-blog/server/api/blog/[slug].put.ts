@@ -1,5 +1,6 @@
 import { createError, defineEventHandler, getRouterParam, readBody, useNitroApp } from '#imports'
 import { type BlogPostRequest } from '../../../shared/types/blog'
+import { getMetaInfo } from '../../utils/meta'
 
 export default defineEventHandler(async (event) => {
     const user = event.context.user
@@ -12,7 +13,7 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 400, statusMessage: 'Slug required' })
     }
 
-    const body = await readBody<Partial<BlogPostRequest>>(event)
+    const body = await readBody<BlogPostRequest>(event)
     const updates: any = {}
     const now = new Date()
 
@@ -29,11 +30,14 @@ export default defineEventHandler(async (event) => {
     const ops: any = { $set: { updatedAt: now, ...updates } }
 
     if (typeof body?.markdown === 'string') {
+        const metaInfo = getMetaInfo(body.markdown)
+        ops.$set.tags = metaInfo.tags
         ops.$set.rawMarkdown = body.markdown
         ops.$push = {
             versions: {
                 editor_id: user.userId,
                 markdown: body.markdown,
+                tags: metaInfo.tags,
                 createdAt: now,
             }
         }

@@ -3,7 +3,7 @@ import remarkParse from 'remark-parse';
 import remarkDirective from 'remark-directive';
 import remarkGfm from 'remark-gfm';
 import yaml from 'js-yaml';
-import type { BlogNode, BlogRootNode } from '../../shared/types/blog';
+import { type BlogRootNode, BlogNode } from '../../shared/types/blog';
 
 // Define AST Node types for internal use (Remark nodes)
 interface RemarkNode {
