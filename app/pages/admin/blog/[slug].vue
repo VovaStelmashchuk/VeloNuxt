@@ -2,13 +2,8 @@
     <div class="container mx-auto px-4 py-8 max-w-5xl">
         <div class="flex items-center justify-between mb-4">
             <h1 class="text-2xl font-bold text-accent-primary">Edit: {{ slug }}</h1>
-            <MainButton
-                label="Back to list"
-                buttonStyle="secondary"
-                size="M"
-                link="/admin/blog"
-                icon="mdi:arrow-left"
-            />
+            <MainButton label="Back to list" buttonStyle="secondary" size="M" link="/admin/blog"
+                icon="mdi:arrow-left" />
         </div>
 
         <div class="bg-fill-secondary border border-separator-primary rounded-xl p-4">
@@ -35,6 +30,7 @@
 <script setup lang="ts">
 import { definePageMeta, useFetch, useRoute } from '#imports'
 import { ref } from 'vue'
+import type { BlogPostRequest } from '~~/layers/04-blog/shared/types/blog'
 
 definePageMeta({ layout: 'default', middleware: ['auth'] })
 
@@ -66,7 +62,7 @@ async function save() {
     errorMsg.value = ''
     const { error } = await useFetch(`/api/blog/${encodeURIComponent(slug)}`, {
         method: 'PUT',
-        body: { title: title.value, status: status.value, markdown: markdown.value },
+        body: { title: title.value, status: status.value, markdown: markdown.value } satisfies Partial<BlogPostRequest>,
     })
     saving.value = false
     if (error.value) {

@@ -10,6 +10,12 @@ export interface BlogPost {
     coverImage?: string
 }
 
+export interface BlogPostRequest {
+    title: string
+    markdown: string
+    status: 'draft' | 'published'
+}
+
 export type BlogNode =
     | BlogRootNode
     | BlogTextNode

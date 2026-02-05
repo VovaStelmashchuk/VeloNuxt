@@ -36,8 +36,11 @@
                         <div class="font-medium text-accent-primary">{{ item.title }} <span
                                 class="text-xs px-2 py-0.5 rounded bg-accent-primary/10 ml-2">{{ item.status }}</span>
                         </div>
-                        <div class="text-xs text-label-secondary">{{ item.slug }} • updated {{ new
-                            Date(item.updatedAt).toLocaleString() }}</div>
+                        <div class="text-xs text-label-secondary">
+                            <NuxtLink :to="`/blog/${item.slug}`" target="_blank" class="hover:underline">{{ item.slug }}
+                            </NuxtLink>
+                            • updated {{ new Date(item.updatedAt).toLocaleString() }}
+                        </div>
                     </div>
                     <NuxtLink class="text-accent-primary underline" :to="`/admin/blog/${item.slug}`">Edit</NuxtLink>
                 </div>
@@ -50,10 +53,11 @@
 <script setup lang="ts">
 import { definePageMeta, useFetch } from '#imports'
 import { ref } from 'vue'
+import type { BlogPostRequest } from '~~/layers/04-blog/shared/types/blog'
 
 definePageMeta({ layout: 'default', middleware: ['auth'] })
 
-const createForm = ref({ title: '', markdown: '', status: 'draft' as 'draft' | 'published' })
+const createForm = ref<BlogPostRequest>({ title: '', markdown: '', status: 'draft' })
 const creating = ref(false)
 const createError = ref('')
 const createOk = ref(false)

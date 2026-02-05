@@ -1,6 +1,6 @@
 import { createError, defineEventHandler, getRouterParam, useNitroApp } from '#imports'
-import { parseMarkdown } from '#imports'
-import { BlogPost } from '~~/layers/04-blog/shared/types/blog'
+import { parseMarkdown } from '../../utils/markdown'
+import { BlogPost } from '../../../shared/types/blog'
 
 export default defineEventHandler(async (event): Promise<BlogPost> => {
     const user = event.context.user

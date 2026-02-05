@@ -1,4 +1,5 @@
 import { createError, defineEventHandler, getRouterParam, readBody, useNitroApp } from '#imports'
+import { type BlogPostRequest } from '../../../shared/types/blog'
 
 export default defineEventHandler(async (event) => {
     const user = event.context.user
@@ -11,7 +12,7 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 400, statusMessage: 'Slug required' })
     }
 
-    const body = await readBody<{ markdown?: string; title?: string; status?: 'draft' | 'published' }>(event)
+    const body = await readBody<Partial<BlogPostRequest>>(event)
     const updates: any = {}
     const now = new Date()
 

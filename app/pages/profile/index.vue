@@ -22,7 +22,7 @@
                             </div>
                             <div>
                                 <MainButton buttonStyle="secondary" size="M" icon="mdi:logout" @click="handleLogout">
-                                    Вийти з акаунта
+                                    Logout
                                 </MainButton>
                             </div>
                         </div>

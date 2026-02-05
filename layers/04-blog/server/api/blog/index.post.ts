@@ -1,4 +1,5 @@
 import { createError, defineEventHandler, readBody, useNitroApp } from '#imports'
+import { type BlogPostRequest } from '../../../shared/types/blog'
 import { generateSlugFromTitle } from '~~/shared/utils'
 
 export default defineEventHandler(async (event) => {
@@ -7,7 +8,7 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
     }
 
-    const body = await readBody<{ title: string; markdown: string; status?: 'draft' | 'published' }>(event)
+    const body = await readBody<BlogPostRequest>(event)
     const title = (body?.title || '').trim()
     const markdown = body?.markdown || ''
     const status = body?.status || 'draft'
