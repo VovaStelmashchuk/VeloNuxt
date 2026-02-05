@@ -22,7 +22,7 @@
         {{ label }}
         <slot />
     </component>
-</template>
+</template class="pt-16">
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'

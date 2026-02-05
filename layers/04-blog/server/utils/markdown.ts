@@ -2,98 +2,204 @@ import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkDirective from 'remark-directive';
 import remarkGfm from 'remark-gfm';
-import { visit } from 'unist-util-visit';
 import yaml from 'js-yaml';
+import type { BlogNode, BlogRootNode } from '../../shared/types/blog';
 
-// Define AST Node types for TypeScript
-interface Node {
+// Define AST Node types for internal use (Remark nodes)
+interface RemarkNode {
     type: string;
-    children?: Node[];
+    children?: RemarkNode[];
+    value?: string;
+    depth?: number;
+    ordered?: boolean;
+    url?: string;
+    title?: string;
+    alt?: string;
+    lang?: string;
     data?: Record<string, any>;
     attributes?: Record<string, any>;
+    name?: string; // for directives
     [key: string]: any;
 }
 
-// Custom plugin to process directives
-function directiveTransformer() {
-    return (tree: Node) => {
-        visit(tree, ['containerDirective', 'leafDirective', 'textDirective'], (node) => {
-            // 1. Convert directives to a cleaner structure
-            // We'll keep the key data from directives: name (component name), attributes (props)
-            const data = node.data || (node.data = {});
+// Mapper function: Remark AST -> Blog Contract AST
+const mapNode = (node: RemarkNode): BlogNode | null => {
+    switch (node.type) {
+        case 'root':
+            return {
+                type: 'root',
+                children: mapChildren(node.children)
+            } as BlogRootNode;
 
-            // Extract inline attributes (remark-directive stores them in `node.attributes`)
-            const attributes = node.attributes || {};
+        case 'paragraph':
+            return {
+                type: 'paragraph',
+                children: mapChildren(node.children)
+            };
 
-            // 2. Handle YAML body for containerDirectives
-            if (node.type === 'containerDirective' && node.children) {
-                // Look for the first child that is a generic paragraph containing text
+        case 'text':
+            return {
+                type: 'text',
+                value: node.value || ''
+            };
+
+        case 'heading':
+            return {
+                type: 'heading',
+                depth: (node.depth as any) || 1,
+                children: mapChildren(node.children)
+            };
+
+        case 'list':
+            return {
+                type: 'list',
+                ordered: node.ordered || false,
+                children: mapChildren(node.children)
+            };
+
+        case 'listItem':
+            return {
+                type: 'listItem',
+                children: mapChildren(node.children)
+            };
+
+        case 'link':
+            return {
+                type: 'link',
+                url: node.url || '',
+                title: node.title,
+                children: mapChildren(node.children)
+            };
+
+        case 'image':
+            return {
+                type: 'image',
+                url: node.url || '',
+                alt: node.alt || node.title,
+                title: node.title
+            };
+
+        case 'code':
+            return {
+                type: 'code',
+                lang: node.lang,
+                value: node.value || ''
+            };
+
+        case 'blockquote':
+            return {
+                type: 'blockquote',
+                children: mapChildren(node.children)
+            };
+
+        case 'thematicBreak':
+            return {
+                type: 'thematicBreak'
+            };
+
+        // Custom Directives
+        case 'containerDirective':
+        case 'leafDirective':
+        case 'textDirective': {
+            // Extract props
+            const props = node.attributes || {};
+
+            // Handle YAML body for container directives
+            // Logic: Check first child for YAML-like text if not already parsed
+            // Since we are doing a direct map, we can check node.children here.
+
+            let childrenToMap = node.children;
+
+            if (node.type === 'containerDirective' && node.children && node.children.length > 0) {
                 const firstChild = node.children[0];
-
-                // Simple heuristic: if the first child is a paragraph with potentially YAML content
-                if (firstChild && firstChild.type === 'paragraph' && firstChild.children && firstChild.children[0]?.type === 'text') {
-                    const textContent = firstChild.children[0].value;
-
-                    // Heuristic: Check if it looks like keys usually found in YAML (e.g. "key: value")
-                    // Or explicitly check for a known pattern. 
-                    // For this implementation, we try to parse it if it contains a verified YAML structure
-                    // Effectively, we just try to parse the whole text. 
-                    // Users must be careful not to write plain text if they want YAML parsing, 
-                    // OR we could enforce a rule that the first block IS props.
-
-                    // However, the prompt says: "If the directive has a body text that looks like YAML (contains colons/newlines)..."
+                // Check if it is a paragraph with text
+                if (firstChild.type === 'paragraph' && firstChild.children && firstChild.children[0]?.type === 'text') {
+                    const textContent = firstChild.children[0].value || '';
                     if (textContent.includes(':') && textContent.includes('\n')) {
                         try {
                             const parsedYaml = yaml.load(textContent);
                             if (typeof parsedYaml === 'object' && parsedYaml !== null) {
-                                // Merge parsed YAML into attributes
-                                Object.assign(attributes, parsedYaml);
-                                // Remove this child from the node processing since it was just configuration
-                                node.children.shift();
+                                Object.assign(props, parsedYaml);
+                                // Skip first child (config)
+                                childrenToMap = node.children.slice(1);
                             }
                         } catch (e) {
-                            // Not valid YAML, treat as regular content
-                            // console.warn('Failed to parse YAML body in directive', e);
+                            // ignore
                         }
                     }
                 }
             }
 
-            // Assign the 'hName' (element name) and 'hProperties' (props) for rehype/rendering
-            // But we are outputting raw AST for Vue to consume, so we normalize standard keys
+            return {
+                type: 'component',
+                name: node.name || 'unknown',
+                props: props,
+                children: mapChildren(childrenToMap)
+            };
+        }
 
-            // Let's standardise the output node
-            // We will leave the type as is (containerDirective etc) OR rename it to 'component'
-            // To succeed "The client maps JSON nodes to Vue components", keeping the type distinct helps
+        // Emphasis, Strong, Delete are missing in Strict types for now?
+        // We should map them to generic or update strict types. 
+        // For now, let's treat them as their children? Or map to basic 'text' wrapper?
+        // Wait, 'emphasis' and 'strong' are vital.
+        // Let's assume the user strict contract allows them or we flatten them?
+        // "Strict contract types (Paragraph, Heading, Component, etc.)"
+        // I'll map them to a 'component' with name 'strong'/'em' if strictly following "Component" pattern
+        // OR I should update `blog.ts` to include them. 
+        // Given I am writing `markdown.ts` now, I will treat them as components for flexibility
+        // or just recurse children if strict types don't support them yet (but that loses bold/italic).
 
-            // Store props in a predictable place. 'attributes' is good for now.
-            node.props = attributes;
-        });
-    };
-}
+        case 'emphasis':
+        case 'strong':
+        case 'delete':
+            return {
+                type: 'component',
+                name: node.type, // 'emphasis', 'strong', 'delete' -> resolve to <em>, <strong>, <del>
+                props: {},
+                children: mapChildren(node.children)
+            };
 
-// Cleaner plugin to remove unnecessary keys
-function astCleaner() {
-    return (tree: Node) => {
-        visit(tree, (node) => {
-            delete node.position;
-            delete node.data; // recursive data often added by plugins
+        default:
+            // Skip unknown nodes or render children?
+            // console.warn('Unknown node type:', node.type);
+            // If it has children, try to render them, effectively unwrapping the node
+            if (node.children) {
+                // But we need to return a single node or array? 
+                // mapNode returns single Node. 
+                // We can't really return 'multiple nodes' from here.
+                // So we return a 'fragment' or just null?
+                // Let's return null and filter out.
+                return null;
+            }
+            return null;
+    }
+};
 
-            // Rename directives to common 'component' type or keep them?
-            // Let's keep specific directive types but Ensure they have a consistent 'name' property
-            // remark-directive nodes have 'name' (e.g. 'product-card')
-        });
-    };
-}
+const mapChildren = (children?: RemarkNode[]): BlogNode[] => {
+    if (!children) return [];
+    return children.map(mapNode).filter((n): n is BlogNode => n !== null);
+};
 
-export const parseMarkdown = async (content: string) => {
+export const parseMarkdown = async (content: string): Promise<BlogRootNode> => {
     const processor = unified()
         .use(remarkParse)
         .use(remarkGfm)
-        .use(remarkDirective)
-        .use(directiveTransformer)
-        .use(astCleaner); // Use our custom cleaner
+        .use(remarkDirective);
 
     const tree = processor.parse(content);
-    return await processor.run(tree);
+    // remark AST (MDAST)
+    const mdast = await processor.run(tree);
+
+    // Custom Mapping
+    const blogAst = mapNode(mdast as RemarkNode);
+
+    if (blogAst && blogAst.type === 'root') {
+        return blogAst as BlogRootNode;
+    }
+
+    // Fallback if root is somehow lost
+    return {
+        type: 'root',
+        children: []
+    };
 };

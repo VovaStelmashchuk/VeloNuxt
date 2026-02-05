@@ -1,7 +1,8 @@
 import { createError, defineEventHandler, getRouterParam, useNitroApp } from '#imports'
 import { parseMarkdown } from '#imports'
+import { BlogPost } from '~~/layers/04-blog/shared/types/blog'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event): Promise<BlogPost> => {
     const user = event.context.user
     if (!user) {
         throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
@@ -24,7 +25,7 @@ export default defineEventHandler(async (event) => {
     const ast = await parseMarkdown(post.rawMarkdown || '')
 
     return {
-        ...post,
+        ...(post as unknown as BlogPost),
         body: ast
     }
 })
