@@ -1,5 +1,5 @@
 import { createError, defineEventHandler } from '#imports'
-import { COUNTRY_HEADER_NAME } from '~~/layers/01-user/server/tracking/const'
+import { COUNTRY_HEADER_NAME } from '~~/layers/00-service/server/const'
 
 const blockedCountries = ["RU", "BY"]
 

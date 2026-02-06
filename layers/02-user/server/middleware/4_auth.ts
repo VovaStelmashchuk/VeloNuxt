@@ -1,6 +1,6 @@
 import { defineEventHandler, deleteCookie, getCookie, useNitroApp, useRuntimeConfig } from '#imports'
 import jwt from 'jsonwebtoken'
-import { UserSession } from '~~/server/core/user/user'
+import { UserSession } from '../core/user/user'
 
 export default defineEventHandler(async (event) => {
     const jwtToken = getCookie(event, 'jwt') as string

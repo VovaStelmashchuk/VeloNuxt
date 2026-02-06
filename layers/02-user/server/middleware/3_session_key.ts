@@ -1,6 +1,6 @@
 import { defineEventHandler, getCookie, setCookie, useNitroApp } from '#imports'
 import { randomUUID } from 'crypto'
-import { TRACKING_COOKIE_NAME } from '../tracking/const'
+import { TRACKING_COOKIE_NAME } from '~~/layers/00-service/server/const'
 
 export default defineEventHandler((event) => {
     const sessionKey = getCookie(event, TRACKING_COOKIE_NAME)

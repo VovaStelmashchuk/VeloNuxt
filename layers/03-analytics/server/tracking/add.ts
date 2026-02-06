@@ -5,7 +5,8 @@ export type TrackDBRecord = {
     country: string
     data: Record<string, string>
     sessionKey: string
-    timestamp: Date
+    timestamp: Date,
+    userId: string,
 }
 
 export function saveTrackRecordInBackground(record: TrackDBRecord) {
