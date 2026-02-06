@@ -45,7 +45,7 @@ const saveMsg = ref('')
 const errorMsg = ref('')
 
 async function load() {
-    const { data, error } = await useFetch(`/api/blog/${encodeURIComponent(slug)}`)
+    const { data, error } = await useFetch(`/api/blog/raw/${encodeURIComponent(slug)}`)
     if (!error.value && data.value) {
         // @ts-ignore
         title.value = data.value.title || ''
