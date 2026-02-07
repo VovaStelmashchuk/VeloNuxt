@@ -1,4 +1,6 @@
 import { createError, defineEventHandler, readMultipartFormData, useNitroApp } from '#imports'
+import { USER_ROLES } from '~~/layers/10-user/shared/types/user'
+import { FileStoreType } from '#layers/00-service/server/plugins/2_file_store'
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
@@ -21,8 +23,7 @@ function isValidImageFile(filename: string, mimeType?: string): boolean {
 }
 
 export default defineEventHandler(async (event) => {
-    const user = event.context.user
-    if (!user) {
+    if (event.context.user?.roles?.includes(USER_ROLES.ADMIN) != true) {
         throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
     }
 
@@ -81,7 +82,7 @@ export default defineEventHandler(async (event) => {
             altText: altText || undefined,
             createdAt: now,
             updatedAt: now,
-            createdBy: user.userId
+            createdBy: event.context.user!.userId
         })
 
         logger.info(`Gallery image created with ID: ${result.insertedId}`)

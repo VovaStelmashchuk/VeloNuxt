@@ -1,10 +1,10 @@
-import { createError, defineEventHandler, getRouterParam, useNitroApp } from '#imports'
+import { createError, defineEventHandler, getRouterParam, H3Event, useNitroApp } from '#imports'
 import { ObjectId } from 'mongodb'
-import { FileStoreType } from '~~/layers/00-service/server/plugins/2_file_store'
+import { FileStoreType } from '#layers/00-service/server/plugins/2_file_store'
+import { USER_ROLES } from '~~/layers/10-user/shared/types/user'
 
-export default defineEventHandler(async (event) => {
-    const user = event.context.user
-    if (!user) {
+export default defineEventHandler(async (event: H3Event) => {
+    if (event.context.user?.roles?.includes(USER_ROLES.ADMIN) != true) {
         throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
     }
 

@@ -1,0 +1,7 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Never ever for any file, don't add any documentation or comments 
+The code should be human readable without any documentation.

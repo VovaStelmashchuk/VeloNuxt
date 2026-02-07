@@ -18,6 +18,7 @@ export interface UserDto {
 export interface UserSession {
     sessionKey: string
     userId: string
+    roles: string[]
 }
 
 export const USER_ROLES = {

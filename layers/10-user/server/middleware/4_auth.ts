@@ -20,6 +20,7 @@ export default defineEventHandler(async (event) => {
             const userSession: UserSession = {
                 sessionKey: decoded.sessionKey,
                 userId: decoded.userId,
+                roles: user.roles
             }
 
             db.collection('users').updateOne({ id: decoded.userId }, { $set: { lastActivity: new Date() } })

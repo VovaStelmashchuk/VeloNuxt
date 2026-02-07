@@ -131,7 +131,6 @@ export class FileStore {
 }
 
 export default defineNitroPlugin(async (nitroApp) => {
-    return
     nitroApp.logger.info('Waiting for database to be ready...')
 
     // Wait for MongoDB to be available (with timeout)

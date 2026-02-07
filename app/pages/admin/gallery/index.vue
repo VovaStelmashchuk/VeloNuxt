@@ -43,8 +43,8 @@
                     <div class="mt-1 text-xs text-label-secondary">
                         {{ new Date(item.createdAt).toLocaleDateString() }}
                     </div>
-                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <MainButton button-style="ghost" size="S" label="Delete" @click="deleteImage(item.id)" />
+                    <div class="absolute top-2 right-2">
+                        <MainButton button-style="primary" size="S" icon="mdi:delete" @click="deleteImage(item.id)" />
                     </div>
                 </div>
             </div>

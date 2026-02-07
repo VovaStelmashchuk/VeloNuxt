@@ -2,10 +2,10 @@ import { createError, defineEventHandler, readBody, useNitroApp } from '#imports
 import { type BlogPostRequest } from '../../../shared/types/blog'
 import { generateSlugFromTitle } from '~~/shared/utils'
 import { getMetaInfo } from '../../utils/meta'
+import { USER_ROLES } from '~~/layers/10-user/shared/types/user'
 
 export default defineEventHandler(async (event) => {
-    const user = event.context.user
-    if (!user) {
+    if (event.context.user?.roles?.includes(USER_ROLES.ADMIN) != true) {
         throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
     }
 
@@ -27,13 +27,13 @@ export default defineEventHandler(async (event) => {
         await db.collection('blogPosts').insertOne({
             slug,
             title,
-            owner_id: user.userId,
+            owner_id: event.context.user!.userId,
             rawMarkdown: markdown,
             tags: metaInfo.tags,
             versions: [
                 {
                     tags: metaInfo.tags,
-                    editor_id: user.userId,
+                    editor_id: event.context.user!.userId,
                     markdown,
                     createdAt: now,
                 }

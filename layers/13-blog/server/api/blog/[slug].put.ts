@@ -1,10 +1,10 @@
 import { createError, defineEventHandler, getRouterParam, readBody, useNitroApp } from '#imports'
 import { type BlogPostRequest } from '../../../shared/types/blog'
 import { getMetaInfo } from '../../utils/meta'
+import { USER_ROLES } from '~~/layers/10-user/shared/types/user'
 
 export default defineEventHandler(async (event) => {
-    const user = event.context.user
-    if (!user) {
+    if (event.context.user?.roles?.includes(USER_ROLES.ADMIN) != true) {
         throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
     }
 
@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
         ops.$set.rawMarkdown = body.markdown
         ops.$push = {
             versions: {
-                editor_id: user.userId,
+                editor_id: event.context.user!.userId,
                 markdown: body.markdown,
                 tags: metaInfo.tags,
                 createdAt: now,
