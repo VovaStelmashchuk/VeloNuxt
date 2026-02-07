@@ -4,11 +4,12 @@ VeloNuxt is a project wich contains minimal setup for creating a new best SaaS f
 
 ### Template includes
 
--   Docker image
--   GitHub action for deploy docker image to GitHub registry
--   Setuped client for mongo
--   Dockerfile .dockerignore .gitignore, etc files
--   Nuxt
+- Docker image
+- GitHub action for deploy docker image to GitHub registry
+- Setuped client for mongo
+- Dockerfile .dockerignore .gitignore, etc files
+- Nuxt
+- Docker stack as deploy system
 
 ## Secrets
 
