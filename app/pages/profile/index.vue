@@ -34,10 +34,8 @@
 </template>
 
 <script setup lang="ts">
-import { definePageMeta, navigateTo } from '#imports'
-import { onMounted, ref } from 'vue'
-import { useUser } from '~~/layers/01-user/app/composables/useUser'
-import { trackEvent } from '~~/layers/03-analytics/app/utils/track'
+import { definePageMeta, navigateTo, useUser, trackEvent } from '#imports'
+import { onMounted } from 'vue'
 
 definePageMeta({
     layout: 'default',

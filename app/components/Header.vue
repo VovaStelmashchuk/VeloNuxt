@@ -21,7 +21,7 @@
                 <MainButton v-if="!user" button-style="secondary" size="M" label="Login" @click="startGoogleAuth" />
                 <MainButton v-if="(user as any)?.isAdmin" button-style="secondary" size="M" label="Admin"
                     link="/admin" />
-                <NuxtLink to="/blog">
+                <NuxtLink to="/profile">
                     <div v-if="user" class="flex items-center gap-3">
                         <span class="text-sm font-medium text-label-primary">
                             {{ user?.name }}
@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { useUser } from '~~/layers/02-user/app/composables/useUser'
+import { useUser } from '~~/layers/10-user/app/composables/useUser'
 
 const { user, isLoggedIn } = useUser()
 

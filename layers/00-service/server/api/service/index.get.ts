@@ -1,6 +1,6 @@
 import { defineEventHandler, useNitroApp, useRuntimeConfig } from '#imports'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (_) => {
     const isConnected: boolean = await useNitroApp()
         .db.command({ ping: 1 })
         .then((_) => true)

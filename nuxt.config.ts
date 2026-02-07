@@ -2,7 +2,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
-    extends: ['./layers/design-system', './layers/00-service', './layers/01-user', './layers/02-gallery', './layers/03-analytics', './layers/04-blog'],
+    extends: ['./layers/00-service', './layers/01-design-system', './layers/10-user', './layers/11-analytics', './layers/12-gallery', './layers/13-blog'],
     compatibilityDate: '2025-07-15',
     devtools: { enabled: true },
     imports: {
