@@ -1,4 +1,1 @@
-export type UserSession = {
-    sessionKey: string
-    userId: string
-}
+export type { UserSession } from '#layers/10-user/shared/types/user'

@@ -124,7 +124,7 @@
                     <div class="bg-fill-tertiary p-6 rounded-xl border border-separator-secondary">
                         <h3 class="text-2xl font-bold mb-2">Admin Auth</h3>
                         <p class="text-label-secondary">
-                            Just login with your social account and add field isAdmin to your user record into database.
+                            Just login with your social account and add roles array to your user record in the database.
                         </p>
                     </div>
                     <div class="bg-fill-tertiary p-6 rounded-xl border border-separator-secondary">

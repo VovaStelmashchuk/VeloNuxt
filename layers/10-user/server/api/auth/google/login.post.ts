@@ -1,6 +1,7 @@
 import { defineEventHandler, readBody, setResponseStatus, getRequestHeader, getCookie, setCookie, useNitroApp, useRuntimeConfig } from '#imports'
 import jwt from 'jsonwebtoken'
 import { randomUUID } from 'crypto'
+import { USER_ROLES } from '~~/layers/10-user/shared/types/user'
 
 export default defineEventHandler(async (event) => {
     const { googleAccessToken } = await readBody(event)
@@ -30,6 +31,7 @@ export default defineEventHandler(async (event) => {
         $setOnInsert: {
             id: userId,
             createdAt: new Date(),
+            roles: [USER_ROLES.USER]
         }
     }
 

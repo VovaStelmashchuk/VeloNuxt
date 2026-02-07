@@ -1,26 +1,18 @@
 import { ref, computed } from 'vue'
+import type { UserDto } from '#layers/10-user/shared/types/user'
+export type { UserDto } from '#layers/10-user/shared/types/user'
 
-export type User = {
-    id: string
-    name: string
-    username: string
-}
-
-const user = ref<User | null>(null)
+const user = ref<UserDto | null>(null)
 const isLoading = ref(false)
 
 export const useUser = () => {
     const fetchUser = async () => {
         isLoading.value = true
         try {
-            const response = await $fetch<{ user: User | null }>('/api/user/me', {
+            const response = await $fetch<UserDto | null>('/api/user/me', {
                 credentials: 'include'
             })
-            if (response.user) {
-                user.value = response.user
-            } else {
-                user.value = null
-            }
+            user.value = response
         } catch (error) {
             console.error('Failed to fetch user:', error)
             user.value = null

@@ -41,7 +41,7 @@ onMounted(async () => {
             },
         })
 
-        window.location.href = '/home'
+        window.location.href = '/'
     } catch (e) {
         console.error('Login failed', e)
         router.push('/')

@@ -1,30 +1,27 @@
 import { defineEventHandler, useNitroApp } from '#imports'
-import { UserSession } from '~~/layers/10-user/server/core/user/user'
+import type { UserSession } from '~~/layers/10-user/server/core/user/user'
+import type { UserDto, UserEntity } from '#layers/10-user/shared/types/user'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event): Promise<UserDto | null> => {
     const userSession = event.context.user as UserSession | undefined
 
     if (!userSession) {
-        return {
-            user: null,
-        }
+        return null
     }
 
     const db = useNitroApp().db
-    const user = await db.collection('users').findOne({ id: userSession.userId })
+    const usersCollection = db.collection('users')
+
+    const user = await usersCollection.findOne<UserEntity>({ id: userSession.userId })
 
     if (!user) {
-        return {
-            user: null,
-        }
+        return null
     }
 
     return {
-        user: {
-            id: user.id,
-            name: user.name,
-            username: user.username,
-        },
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        roles: user.roles || []
     }
 })
-
