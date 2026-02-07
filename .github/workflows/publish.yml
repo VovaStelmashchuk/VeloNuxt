@@ -11,6 +11,11 @@ env:
     HOST: 167.235.52.168
     DOCKER_STACK_NAME: VeloNuxt
     IMAGE_NAME: vovastelmashchuk/VeloNuxt
+    BASE_URL: ${{ vars.BASE_URL }}
+    MONGO_URI: ${{ secrets.MONGO_URI }}
+    JWT_SECRET: ${{ secrets.JWT_SECRET }}
+    GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
+    DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
 
 jobs:
     build-and-push-image:
@@ -53,12 +58,12 @@ jobs:
 
             - name: Create .env file for Docker Stack
               run: |
-                  echo "IMAGE_TAG='${{ env.IMAGE_TAG }}'" >> .env
+                  echo "IMAGE_NAME='${{ env.IMAGE_NAME }}'" >> .env
                   echo "GIT_COMMIT_HASH='${{ github.sha }}'" >> .env
-                  echo "BASE_URL='${{ vars.BASE_URL }}'" >> .env
-                  echo "MONGO_URI='${{ secrets.MONGO_URI }}'" >> .env
-                  echo "JWT_SECRET=${{ secrets.JWT_SECRET }}"
-                  echo "GOOGLE_CLIENT_ID='${{ vars.GOOGLE_CLIENT_ID }}'" >> .env
+                  echo "BASE_URL='${{ env.BASE_URL }}'" >> .env
+                  echo "MONGO_URI='${{ env.MONGO_URI }}'" >> .env
+                  echo "JWT_SECRET='${{ env.JWT_SECRET }}'" >> .env
+                  echo "GOOGLE_CLIENT_ID='${{ env.GOOGLE_CLIENT_ID }}'" >> .env
 
             - name: Setup docker remote context
               uses: cssnr/stack-deploy-action@v1
@@ -68,7 +73,7 @@ jobs:
                   host: ${{ env.HOST }}
                   port: 22
                   user: ${{ env.DEPLOY_USER }}
-                  ssh_key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+                  ssh_key: ${{ env.DEPLOY_SSH_PRIVATE_KEY }}
                   env_file: .env
                   detach: false
                   prune: true
