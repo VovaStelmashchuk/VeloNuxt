@@ -7,7 +7,7 @@ on:
 
 env:
     REGISTRY: ghcr.io
-    DEPLOY_USER: deploy
+    DEPLOY_USER: root
     HOST: ${{ vars.HOST }} 
     DOCKER_STACK_NAME: velonuxt 
     IMAGE_NAME: vovastelmashchuk/velonuxt
