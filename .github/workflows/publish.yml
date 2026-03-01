@@ -8,14 +8,14 @@ on:
 env:
     REGISTRY: ghcr.io
     DEPLOY_USER: deploy
-    HOST: ${{ vars.VPS_IP }} 
+    HOST: ${{ vars.HOST }} 
     DOCKER_STACK_NAME: velonuxt 
     IMAGE_NAME: vovastelmashchuk/velonuxt
     BASE_URL: ${{ vars.BASE_URL }}
     MONGO_URI: ${{ secrets.MONGO_URI }}
     JWT_SECRET: ${{ secrets.JWT_SECRET }}
     GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
-    DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+    ROOT_SSH_PRIVATE_KEY: ${{ secrets.ROOT_SSH_PRIVATE_KEY }}
 
 jobs:
     build-and-push-image:
@@ -73,7 +73,7 @@ jobs:
                   host: ${{ env.HOST }}
                   port: 22
                   user: ${{ env.DEPLOY_USER }}
-                  ssh_key: ${{ env.DEPLOY_SSH_PRIVATE_KEY }}
+                  ssh_key: ${{ env.ROOT_SSH_PRIVATE_KEY }}
                   env_file: .env
                   detach: false
                   prune: true
