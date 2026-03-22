@@ -187,7 +187,7 @@
                     <div>
                         <h3 class="text-xl font-bold mb-2">Can I contribute?</h3>
                         <p class="text-label-secondary">Absolutely! Check out our <a
-                                href="https://github.com/VovaStelmashchuk/kickstart"
+                                href="https://github.com/VovaStelmashchuk/velonuxt"
                                 class="underline hover:text-accent-primary">GitHub repository</a>.</p>
                     </div>
                 </div>
